@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wox.Plugin.Todos", "Wox.Plugin.Todos\Wox.Plugin.Todos.csproj", "{4A4B872D-3698-4900-B179-A009FF1F5C04}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Wox.Plugin", "Wox.Plugin", "{9BC1CC56-A016-4050-9F7A-74515C5FE11C}"
+	ProjectSection(SolutionItems) = preProject
+		Wox.Plugin\README.md = Wox.Plugin\README.md
+		Wox.Plugin\Wox.Plugin.dll = Wox.Plugin\Wox.Plugin.dll
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4A4B872D-3698-4900-B179-A009FF1F5C04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A4B872D-3698-4900-B179-A009FF1F5C04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A4B872D-3698-4900-B179-A009FF1F5C04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A4B872D-3698-4900-B179-A009FF1F5C04}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

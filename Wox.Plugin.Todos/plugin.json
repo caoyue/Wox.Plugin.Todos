@@ -1,0 +1,12 @@
+{
+    "ID":"5B7E53D506844D2D8B7001AA19F5EF8F",
+    "ActionKeyword":"td",
+    "Name":"Todos",
+    "Description":"a simple todo app for Wox.",
+    "Author":"caoyue",
+    "Version":"1.0.0",
+    "Language":"csharp",
+    "Website":"https://github.com/caoyue/Wox.Plugin.Todos",
+    "ExecuteFileName":"Wox.Plugin.Todos.dll",
+    "IcoPath":"ico\\app.png"
+}
