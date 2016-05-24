@@ -1,7 +1,7 @@
 Wox.Plugin.Todos
 --------------------------
 
-A simple todo app for Wox
+A simple todo app for [Wox](https://github.com/Wox-launcher/Wox)
 
 ![demo.gif](https://raw.githubusercontent.com/caoyue/Wox.Plugin.Todos/master/todos.gif)
 
@@ -15,4 +15,5 @@ A simple todo app for Wox
     ```
     C:\Users\me\OneDrive\todos.data.json
     ```
-- restart Wox to take effect
+- use `td -rl` or `restart Wox` to take effect
+- tips: cause data file may be synced after the initialization of Wox plugin, if todo list not updated, use `td -rl` to reload todos from the data file

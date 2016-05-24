@@ -7,17 +7,24 @@ namespace Wox.Plugin.Todos
     public class Main : IPlugin
     {
         private static Todos _todos;
+        private static bool _isReloaded;
 
         public List<Result> Query(Query query)
         {
+            if (!_isReloaded) {
+                _todos.Context.API.StartLoadingBar();
+                _todos.Reload();
+                _isReloaded = true;
+                _todos.Context.API.StopLoadingBar();
+            }
+
             _todos.ActionKeyword = query.ActionKeyword;
 
             if (query.FirstSearch.Equals("-")) {
                 return new Help(_todos, query).Show;
             }
 
-            if (!query.FirstSearch.StartsWith("-"))
-            {
+            if (!query.FirstSearch.StartsWith("-")) {
                 return Search(query.Search, t => !t.Completed);
             }
 
@@ -81,6 +88,19 @@ namespace Wox.Plugin.Todos
                     };
                 case TodoCommand.L:
                     return Search(query.SecondToEndSearch);
+                case TodoCommand.Rl:
+                    return new List<Result> {
+                        new Result {
+                            Title = "Reload todos from data file?",
+                            SubTitle = "click to reload",
+                            IcoPath = _todos.GetFilePath(),
+                            Action = c => {
+                                _todos.Reload();
+                                _todos.Context.API.ChangeQuery($"{query.ActionKeyword} ", true);
+                                return false;
+                            }
+                        }
+                    };
                 default:
                     return Search(query.Search, t => !t.Completed);
             }
@@ -90,6 +110,7 @@ namespace Wox.Plugin.Todos
         {
             context.API.StartLoadingBar();
             _todos = new Todos(context);
+            _isReloaded = false;
             context.API.StopLoadingBar();
         }
 

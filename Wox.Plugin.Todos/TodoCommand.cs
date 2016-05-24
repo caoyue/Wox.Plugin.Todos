@@ -13,6 +13,8 @@ namespace Wox.Plugin.Todos
         [Description("Remove")]
         R,
         [Description("Help")]
-        H
+        H,
+        [Description("Reload")]
+        Rl
     }
 }

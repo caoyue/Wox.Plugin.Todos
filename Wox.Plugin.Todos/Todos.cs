@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -22,9 +21,9 @@ namespace Wox.Plugin.Todos
         private const string ConfigFile = @"config.txt";
         private const string DataFile = @"todos.data.json";
 
-        private readonly string _dataFilePath;
+        private string _dataFilePath;
 
-        private readonly List<Todo> _todoList;
+        private List<Todo> _todoList;
         public PluginInitContext Context { get; }
 
         public string ActionKeyword { get; set; }
@@ -38,21 +37,7 @@ namespace Wox.Plugin.Todos
                 ActionKeyword = context.CurrentPluginMetadata.ActionKeywords[0];
             }
 
-            _dataFilePath = File.Exists(GetFilePath(ConfigFile))
-                ? File.ReadAllText(GetFilePath(ConfigFile))
-                : GetFilePath(DataFile);
-
-            try {
-                var text = File.ReadAllText(_dataFilePath);
-                _todoList = JsonConvert.DeserializeObject<List<Todo>>(text);
-            }
-            catch (FileNotFoundException) {
-                _todoList = new List<Todo>();
-                Save();
-            }
-            catch (Exception e) {
-                throw new Exception($"data file broken: {e.Message}!");
-            }
+            Load();
         }
 
         public List<Result> Results => ToResults(_todoList);
@@ -60,6 +45,11 @@ namespace Wox.Plugin.Todos
         public int MaxId
         {
             get { return _todoList != null && _todoList.Any() ? _todoList.Max(t => t.Id) : 0; }
+        }
+
+        public void Reload()
+        {
+            Load();
         }
 
         public List<Result> Find(
@@ -154,6 +144,25 @@ namespace Wox.Plugin.Todos
         {
             return Path.Combine(Context.CurrentPluginMetadata.PluginDirectory,
                 string.IsNullOrEmpty(icon) ? @"ico\app.png" : icon);
+        }
+
+        private void Load()
+        {
+            _dataFilePath = File.Exists(GetFilePath(ConfigFile))
+                ? File.ReadAllText(GetFilePath(ConfigFile))
+                : GetFilePath(DataFile);
+
+            try {
+                var text = File.ReadAllText(_dataFilePath);
+                _todoList = JsonConvert.DeserializeObject<List<Todo>>(text);
+            }
+            catch (FileNotFoundException) {
+                _todoList = new List<Todo>();
+                Save();
+            }
+            catch (Exception e) {
+                throw new Exception($"data file broken: {e.Message}!");
+            }
         }
 
         private void Save()

@@ -29,6 +29,15 @@ namespace Wox.Plugin.Todos
                         }
                     },
                     new Result {
+                        Title = $"{Query.ActionKeyword} -rl",
+                        SubTitle = "reload todos from data file",
+                        IcoPath = Todos.GetFilePath(),
+                        Action = c => {
+                            Todos.Context.API.ChangeQuery($"{Query.ActionKeyword} ");
+                            return false;
+                        }
+                    },
+                    new Result {
                         Title = $"{Query.ActionKeyword} [keyword]",
                         SubTitle = "list todos",
                         IcoPath = Todos.GetFilePath(),
