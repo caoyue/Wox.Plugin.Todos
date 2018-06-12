@@ -109,6 +109,22 @@ namespace Wox.Plugin.Todos
             return this;
         }
 
+        public Todos RemoveAllCompletedTodos(Action callback = null)
+        {
+            _todoList.RemoveAll(t => t.Completed);
+            Save();
+            if (callback == null)
+            {
+                Context.API.ChangeQuery($"{ActionKeyword} ");
+                Alert("Success", "All completed todos removed!");
+            }
+            else
+            {
+                callback();
+            }
+            return this;
+        }
+
         public Todos Complete(Todo todo, Action callback = null)
         {
             var item = _todoList.FirstOrDefault(t => t.Id == todo.Id);
