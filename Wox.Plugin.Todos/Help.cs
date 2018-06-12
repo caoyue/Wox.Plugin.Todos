@@ -74,6 +74,15 @@ namespace Wox.Plugin.Todos
                         }
                     },
                     new Result {
+                        Title = $"{Query.ActionKeyword} -r --done",
+                        SubTitle = "Remove all commpleted todos",
+                        IcoPath = Todos.GetFilePath(),
+                        Action = c => {
+                            Todos.Context.API.ChangeQuery($"{Query.ActionKeyword} -r --done");
+                            return false;
+                        }
+                    },
+                    new Result {
                         Title = $"{Query.ActionKeyword} -c [keyword]",
                         SubTitle = "mark todo as done",
                         IcoPath = Todos.GetFilePath(),

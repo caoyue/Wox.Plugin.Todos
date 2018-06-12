@@ -74,6 +74,20 @@ namespace Wox.Plugin.Todos
                             }
                         };
                     }
+                    else if (query.SecondSearch.Equals("--done", StringComparison.OrdinalIgnoreCase))
+                    {
+                        return new List<Result> {
+                            new Result {
+                                Title = "Remove all completed todos?",
+                                SubTitle = "click to remove all todos",
+                                IcoPath = _todos.GetFilePath(),
+                                Action = c => {
+                                    _todos.RemoveAllCompletedTodos();
+                                    return true;
+                                }
+                            }
+                        };
+                    }
                     var results = _todos.Find(
                         t => t.Content.IndexOf(query.SecondToEndSearch, StringComparison.OrdinalIgnoreCase) >= 0,
                         t2 => "click to remove todo",
@@ -100,7 +114,7 @@ namespace Wox.Plugin.Todos
                                 return false;
                             }
                         }
-                    };
+                    };    
                 default:
                     return Search(query.Search, t => !t.Completed);
             }
