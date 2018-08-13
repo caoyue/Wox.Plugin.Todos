@@ -1,5 +1,6 @@
 Wox.Plugin.Todos
 --------------------------
+[![Build status](https://ci.appveyor.com/api/projects/status/hbaa5n2oo940lwyl/branch/master?svg=true)](https://ci.appveyor.com/project/caoyue/wox-plugin-todos/branch/master)
 
 A simple todo app for [Wox](https://github.com/Wox-launcher/Wox)
 
@@ -9,11 +10,5 @@ A simple todo app for [Wox](https://github.com/Wox-launcher/Wox)
 - type `td -h` to view supported commands
 
 ### sync your todo list
-- open your plugin directory(open settings -> Plugin -> Wox.Plguin.Todos -> click 'Plugin Directory')
-- put `config.txt` in plugin directory with a file path which could be synced, e.g.
-
-    ```
-    C:\Users\me\OneDrive\todos.data.json
-    ```
-- use `td -rl` or `restart Wox` to take effect
-- tips: cause data file may be synced after the initialization of Wox plugin, if todo list not updated, use `td -rl` to reload todos from the data file
+- go to "Settings -> Plugin -> Todos", choose a synced folder you want to store data file
+- restart wox to take effect

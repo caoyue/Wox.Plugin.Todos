@@ -1,18 +1,21 @@
-﻿using System.Collections.Generic;
-
+using System.Collections.Generic;
+using System.IO;
 
 namespace Wox.Plugin.Todos
 {
     public class Help
     {
-        public Help(Todos todos, Query query)
+        private readonly PluginInitContext _context;
+        private readonly Query _query;
+        private readonly string _iconPath;
+
+        public Help(PluginInitContext context, Query query)
         {
-            Todos = todos;
-            Query = query;
+            _context = context;
+            _query = query;
+            _iconPath = Path.Combine(_context.CurrentPluginMetadata.PluginDirectory, @"ico\app.png");
         }
 
-        public Todos Todos { get; }
-        public Query Query { get; }
 
         public List<Result> Show
         {
@@ -20,83 +23,83 @@ namespace Wox.Plugin.Todos
             {
                 return new List<Result> {
                     new Result {
-                        Title = $"{Query.ActionKeyword} -a [text]",
+                        Title = $"{_query.ActionKeyword} -a [text]",
                         SubTitle = "add todos",
-                        IcoPath = Todos.GetFilePath(),
+                        IcoPath = _iconPath,
                         Action = c => {
-                            Todos.Context.API.ChangeQuery($"{Query.ActionKeyword} -a ");
+                            _context.API.ChangeQuery($"{_query.ActionKeyword} -a ");
                             return false;
                         }
                     },
                     new Result {
-                        Title = $"{Query.ActionKeyword} -rl",
+                        Title = $"{_query.ActionKeyword} -rl",
                         SubTitle = "reload todos from data file",
-                        IcoPath = Todos.GetFilePath(),
+                        IcoPath = _iconPath,
                         Action = c => {
-                            Todos.Context.API.ChangeQuery($"{Query.ActionKeyword} ");
+                            _context.API.ChangeQuery($"{_query.ActionKeyword} ");
                             return false;
                         }
                     },
                     new Result {
-                        Title = $"{Query.ActionKeyword} [keyword]",
+                        Title = $"{_query.ActionKeyword} [keyword]",
                         SubTitle = "list todos",
-                        IcoPath = Todos.GetFilePath(),
+                        IcoPath = _iconPath,
                         Action = c => {
-                            Todos.Context.API.ChangeQuery($"{Query.ActionKeyword} -l ");
+                            _context.API.ChangeQuery($"{_query.ActionKeyword} -l ");
                             return false;
                         }
                     },
                     new Result {
-                        Title = $"{Query.ActionKeyword} -l [keyword]",
+                        Title = $"{_query.ActionKeyword} -l [keyword]",
                         SubTitle = "list all todos, inclued completed todos",
-                        IcoPath = Todos.GetFilePath(),
+                        IcoPath = _iconPath,
                         Action = c => {
-                            Todos.Context.API.ChangeQuery($"{Query.ActionKeyword} -l ");
+                            _context.API.ChangeQuery($"{_query.ActionKeyword} -l ");
                             return false;
                         }
                     },
                     new Result {
-                        Title = $"{Query.ActionKeyword} -r [keyword]",
+                        Title = $"{_query.ActionKeyword} -r [keyword]",
                         SubTitle = "remove todos",
-                        IcoPath = Todos.GetFilePath(),
+                        IcoPath = _iconPath,
                         Action = c => {
-                            Todos.Context.API.ChangeQuery($"{Query.ActionKeyword} -r ");
+                            _context.API.ChangeQuery($"{_query.ActionKeyword} -r ");
                             return false;
                         }
                     },
                     new Result {
-                        Title = $"{Query.ActionKeyword} -r --all",
+                        Title = $"{_query.ActionKeyword} -r --all",
                         SubTitle = "remove all todos",
-                        IcoPath = Todos.GetFilePath(),
+                        IcoPath = _iconPath,
                         Action = c => {
-                            Todos.Context.API.ChangeQuery($"{Query.ActionKeyword} -r --all");
+                            _context.API.ChangeQuery($"{_query.ActionKeyword} -r --all");
                             return false;
                         }
                     },
                     new Result {
-                        Title = $"{Query.ActionKeyword} -r --done",
+                        Title = $"{_query.ActionKeyword} -r --done",
                         SubTitle = "Remove all commpleted todos",
-                        IcoPath = Todos.GetFilePath(),
+                        IcoPath = _iconPath,
                         Action = c => {
-                            Todos.Context.API.ChangeQuery($"{Query.ActionKeyword} -r --done");
+                            _context.API.ChangeQuery($"{_query.ActionKeyword} -r --done");
                             return false;
                         }
                     },
                     new Result {
-                        Title = $"{Query.ActionKeyword} -c [keyword]",
+                        Title = $"{_query.ActionKeyword} -c [keyword]",
                         SubTitle = "mark todo as done",
-                        IcoPath = Todos.GetFilePath(),
+                        IcoPath = _iconPath,
                         Action = c => {
-                            Todos.Context.API.ChangeQuery($"{Query.ActionKeyword} -c ");
+                            _context.API.ChangeQuery($"{_query.ActionKeyword} -c ");
                             return false;
                         }
                     },
                     new Result {
-                        Title = $"{Query.ActionKeyword} -c --all",
+                        Title = $"{_query.ActionKeyword} -c --all",
                         SubTitle = "mark all todos as done",
-                        IcoPath = Todos.GetFilePath(),
+                        IcoPath = _iconPath,
                         Action = c => {
-                            Todos.Context.API.ChangeQuery($"{Query.ActionKeyword} -c --all");
+                            _context.API.ChangeQuery($"{_query.ActionKeyword} -c --all");
                             return false;
                         }
                     }
